@@ -1,0 +1,51 @@
+tags:
+  - Drivers
+summary: Returns list of drivers.
+description: Order parameter can be provided.
+produces:
+  - application/xml
+  - application/json
+parameters:
+  - name: order
+    in: query
+    description: Drivers list order.
+    type: string
+    enum: [asc, desc]
+    required: false
+    default: asc
+  - name: format
+    in: query
+    description: Response format.
+    type: string
+    enum: [ json, xml ]
+    required: false
+    default: json
+responses:
+  200:
+    description: A drivers list ordered by abbreviation in asc or desc order.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Driver"
+      xml:
+        name: response
+        wrapped: true
+  500:
+    description: Internal server error.
+
+
+definitions:
+  Driver:
+    type: object
+    properties:
+      id:
+        type: string
+        example: SVF
+      name:
+        type: string
+        example: Sebastian
+      surname:
+        type: string
+        example: Vettel
+    xml:
+      name: driver

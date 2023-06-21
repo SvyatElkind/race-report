@@ -1,0 +1,59 @@
+tags:
+  - Report
+summary: Returns race report.
+description: Returns list of drivers objects. 
+  Order parameter can be provided to order by drivers place in the race.
+produces:
+  - application/xml
+  - application/json
+parameters:
+  - name: order
+    in: query
+    description: Report order.
+    type: string
+    enum: [asc, desc]
+    required: false
+    default: asc
+  - name: format
+    in: query
+    description: Response format.
+    type: string
+    enum: [ json, xml ]
+    required: false
+    default: json
+responses:
+  200:
+    description: A race report ordered by place in asc or desc order.
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/Report"
+      xml:
+        name: response
+        wrapped: true
+  500:
+    description: Internal server error.
+
+
+definitions:
+  Report:
+    type: object
+    properties:
+      place:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: Sebastian
+      surname:
+        type: string
+        example: Vettel
+      team:
+        type: string
+        example: FERRARI
+      lapTime:
+        type: string
+        example: 1.13.743
+    xml:
+      name: driver

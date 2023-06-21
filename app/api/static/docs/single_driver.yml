@@ -1,0 +1,52 @@
+tags:
+  - Single Driver
+summary: Returns information about driver.
+description: Information about driver contains abbreviation, full name, team and lap time.
+produces:
+  - application/xml
+  - application/json
+parameters:
+  - name: driver_id
+    in: path
+    description: Driver abbreviation.
+    type: string
+    required: true
+  - name: format
+    in: query
+    description: Response format.
+    type: string
+    enum: [ json, xml ]
+    required: false
+    default: json
+responses:
+  200:
+    description: Information about driver.
+    schema:
+      $ref: "#/definitions/SingleDriver"
+  404:
+    description: A driver with the specified ID was not found.
+  500:
+    description: Internal server error.
+
+
+definitions:
+  SingleDriver:
+    type: object
+    properties:
+      id:
+        type: string
+        example: SVF
+      name:
+        type: string
+        example: Sebastian
+      surname:
+        type: string
+        example: Vettel
+      team:
+        type: string
+        example: FERRARI
+      lapTime:
+        type: string
+        example: 1.13.743
+    xml:
+      name: driver
